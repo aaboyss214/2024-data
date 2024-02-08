@@ -1,5 +1,16 @@
 import time
 
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"time elapsed : {end - start}")
+        return result
+    return wrapper
+
+
 def factorial(number) -> int:
     """
     factorial by repetition
@@ -11,7 +22,7 @@ def factorial(number) -> int:
         result = result*i
     return result
 
-'''
+
 def factorial(number) -> int:
     """
     factorial by recursion
@@ -22,17 +33,16 @@ def factorial(number) -> int:
         return 1
     else:
         return number * factorial(number - 1)
-'''
-def nCr(n, r) -> int:
+
+@timer
+def nCr(n, r) -> int:  #OCP violation
     """
     조합 함수
     :param n:
     :param r:
     :return: 조합 값
     """
-    start = time.time()
+
     numerator = factorial(n)
     denominator = factorial(n-r)*factorial(r)
-    end = time.time()
-    print(f"소요시간 : {end - start}")
     return int(numerator / denominator)
