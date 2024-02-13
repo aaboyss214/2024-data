@@ -1,76 +1,65 @@
 ## 함수 선언 부분 ##
-def isStackFull() :
-	global SIZE, stack, top
-	if (top >= SIZE-1) :
+def isQueueFull():
+	global SIZE, queue, front, rear
+	return rear == SIZE-1
+
+def isQueueEmpty():
+	global SIZE, queue, front, rear
+	if (front == rear) :
 		return True
 	else :
 		return False
 
-def isStackEmpty() :
-	global SIZE, stack, top
-	if (top == -1) :
-		return True
-	else :
-		return False
-
-def push(data) :
-	global SIZE, stack, top
-	if (isStackFull()) :
-		print("스택이 꽉 찼습니다.")
+def enQueue(data):
+	global SIZE, queue, front, rear
+	if (isQueueFull()) :
+		print("큐가 꽉 찼습니다.")
 		return
-	top += 1
-	stack[top] = data
+	rear += 1
+	queue[rear] = data
 
-def pop() :
-	global SIZE, stack, top
-	if (isStackEmpty()) :
-		print("스택이 비었습니다.")
+def deQueue() :
+	global SIZE, queue, front, rear
+	if (isQueueEmpty()) :
+		print("큐가 비었습니다.")
 		return None
-	data = stack[top]
-	stack[top] = None
-	top -= 1
+	front += 1
+	data = queue[front]
+	queue[front] = None
 	return data
 
 def peek() :
-	global SIZE, stack, top
-	if (isStackEmpty()) :
-		print("스택이 비었습니다.")
+	global SIZE, queue, front, rear
+	if (isQueueEmpty()) :
+		print("큐가 비었습니다.")
 		return None
-	return stack[top]
-
-def checkBracket(expr) :
-	for ch in expr:
-		if ch in '([{<':
-			push(ch)
-		elif ch in ')]}>':
-			out = pop()
-			if ch == ')' and out == '(':
-				pass
-			elif ch == ']' and out == '[':
-				pass
-			elif ch == '}' and out == '{':
-				pass
-			elif ch == '>' and out == '<':
-				pass
-			else:
-				return False
-		else :
-			pass
-	if isStackEmpty() :
-		return True
-	else :
-		return False
+	return queue[front+1]
 
 ## 전역 변수 선언 부분 ##
-SIZE = 100
-stack = [ None for _ in range(SIZE) ]
-top = -1
+SIZE = int(input("큐의 크기를 입력하세요 ==> "))
+queue = [ None for _ in range(SIZE) ]
+front = rear = -1
 
 ## 메인 코드 부분 ##
 if __name__ == "__main__" :
+	select = input("삽입(I)/추출(E)/확인(V)/종료(X) 중 하나를 선택 ==> ")
 
-	exprAry = ['(A+B)', ')A+B(', '((A+B)-C', '(A+B]', '(<A+{B-C}/[C*D]>)']
+	while (select != 'X' and select != 'x') :
+		if select=='I' or select =='i' :
+			data = input("입력할 데이터 ==> ")
+			enQueue(data)
+			print("큐 상태 : ", queue)
+		elif select=='E' or select =='e' :
+			data = deQueue()
+			print("추출된 데이터 ==> ", data)
+			print("큐 상태 : ", queue)
+		elif select=='V' or select =='v' :
+			data = peek()
+			print("확인된 데이터 ==> ", data)
+			print("큐 상태 : ", queue)
+		else :
+			print("입력이 잘못됨")
 
-	for expr in exprAry :
-		top = -1
-		print(expr, '==>', checkBracket(expr))
+		select = input("삽입(I)/추출(E)/확인(V)/종료(X) 중 하나를 선택 ==> ")
+
+	print("프로그램 종료!")
