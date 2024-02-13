@@ -1,6 +1,3 @@
-import webbrowser
-import time
-
 ## 함수 선언 부분 ##
 def isStackFull() :
 	global SIZE, stack, top
@@ -41,29 +38,39 @@ def peek() :
 		return None
 	return stack[top]
 
+def checkBracket(expr) :
+	for ch in expr:
+		if ch in '([{<':
+			push(ch)
+		elif ch in ')]}>':
+			out = pop()
+			if ch == ')' and out == '(':
+				pass
+			elif ch == ']' and out == '[':
+				pass
+			elif ch == '}' and out == '{':
+				pass
+			elif ch == '>' and out == '<':
+				pass
+			else:
+				return False
+		else :
+			pass
+	if isStackEmpty() :
+		return True
+	else :
+		return False
+
 ## 전역 변수 선언 부분 ##
-SIZE = 10
+SIZE = 100
 stack = [ None for _ in range(SIZE) ]
 top = -1
 
 ## 메인 코드 부분 ##
 if __name__ == "__main__" :
-	urls = [ 'naver.com', 'daum.net', 'nate.com']
 
-	for url in urls :
-		push(url)
-		webbrowser.open('http://'+url)
-		print(url, end = '-->')
-		time.sleep(1)
+	exprAry = ['(A+B)', ')A+B(', '((A+B)-C', '(A+B]', '(<A+{B-C}/[C*D]>)']
 
-	print("방문 종료")
-	time.sleep(5)
-
-	while True :
-		url = pop()
-		if url == None :
-			break
-		webbrowser.open('http://'+url)
-		print(url, end = '-->')
-		time.sleep(1)
-	print("방문 종료")
+	for expr in exprAry :
+		top = -1
+		print(expr, '==>', checkBracket(expr))
