@@ -42,7 +42,6 @@ def nCr(n, r) -> int:  #OCP violation
     :param r:
     :return: 조합 값
     """
-
     numerator = factorial(n)
     denominator = factorial(n-r)*factorial(r)
     return int(numerator / denominator)
