@@ -35,39 +35,7 @@ def Data_assign(name_email):
             pre.link = node
             node.link = current
             return
-
-
     current.link = node
-    # if current.link is None:
-    #     if head.data[1] > email:
-    #         node.link = head
-    #         head = node
-    #     else:
-    #         head.link = node
-    #     pre = head
-    #     current = head
-    # else:
-    #     while True:
-    #         pre = current
-    #         current = current.link
-    #         if current.link is None:
-    #             current.link = node
-    #             break
-    #         elif head.data[1] > email:
-    #             node.link = head
-    #             head = node
-    #             break
-    #         elif current.data[1] > email:
-    #             node.link = current
-    #             pre.link = node
-    #             break
-    #         else:
-    #             node.link = current.link
-    #             current.link = node
-    # count = count+1
-    # current = head
-    # pre = head
-    # Print_Data(head)
 def Print_Data(start):
     current = start
     if start is None:
