@@ -1,14 +1,14 @@
-# sum = 0
-# pre1 = 0
-# pre2 = 1
-# number = int(input())
-# print(pre2, end = ' ')
-# while number >= 2:
-# 	sum = pre1 + pre2
-# 	number = number - 1
-# 	print(sum, end=' ')
-# 	pre1=pre2
-# 	pre2=sum
+sum = 0
+pre1 = 0
+pre2 = 1
+number = int(input())
+print(pre2, end = ' ')
+while number >= 2:
+	sum = pre1 + pre2
+	number = number - 1
+	print(sum, end=' ')
+	pre1=pre2
+	pre2=sum
 
 def fibo(n) :
 	if n == 0 :
@@ -22,9 +22,9 @@ def fibo(n) :
 # print('피보나치 수 --> 0 1 ', end='')
 # for i in range(2, number):
 # 	print(fibo(i), end=' ')
-
-
-memo = [None for _ in range(100)]#컴프리헨션
+print()
+number = int(input())
+memo = [None for _ in range(number)]#컴프리헨션
 
 def fibo_memo(n: int, memo: list) -> int:
 	if memo[n] is not None:
@@ -36,7 +36,7 @@ def fibo_memo(n: int, memo: list) -> int:
 		memo[n]=result
 	return result
 
-number = int(input())
+
 for i in range(0,number):
 	print(i,end = ' ')
 	print(fibo_memo(i,memo))
