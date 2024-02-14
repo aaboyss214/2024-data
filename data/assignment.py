@@ -15,63 +15,79 @@ class Node():
 노드 데이터들을 출력하는 함수 하나
 전역 변수로는 head, current, pre 만들면 될듯
 '''
-def Data_assign():
-    global head, current, pre, count
-    while True:
-        node = Node()
-        print()
-        name = input('이름--> ')
-        if name == '':
-            return
-        email = input('이메일--> ')
-        node.data = [name, email]
-        if head is None:
-            head = node
-            current = node
-        else:
-            if current.link is None:
-                if head.data[1]>node.data[1]:
-                    node.link = head
-                    head = node
-                    current = node
-                else:
-                    head.link = node
-                pre = head
-            else:
-                while True:
-                    if current.data[1] < email:
-                        pre = current
-                        current = current.link
-                    elif current.link is None:
-                        current.link = node
-                        break
-                    elif head.data[1] > email:
-                        node.link = head
-                        head = node
-                        break
-                    elif current.data[1] > email:
-                        node.link = current
-                        pre.link = node
-                        break
-                    else:
-                        node.link = current.link
-                        current.link = node
-        count = count+1
-        current = head
+def Data_assign(name_email):
+    global head, current, pre
+    node = Node()
+    node.data = name_email
+
+    if head is None:
+        head = node
+        return
+    if head.data[1] > name_email[1]:
+        node.link = head
+        head = node
+        return
+    current = head
+    while current.link is not None:
         pre = head
-        Print_Data(head)
+        current = current.link
+        if current.data[1] > name_email[1]:
+            pre.link = node
+            node.link = current
+            return
+
+
+    current.link = node
+    # if current.link is None:
+    #     if head.data[1] > email:
+    #         node.link = head
+    #         head = node
+    #     else:
+    #         head.link = node
+    #     pre = head
+    #     current = head
+    # else:
+    #     while True:
+    #         pre = current
+    #         current = current.link
+    #         if current.link is None:
+    #             current.link = node
+    #             break
+    #         elif head.data[1] > email:
+    #             node.link = head
+    #             head = node
+    #             break
+    #         elif current.data[1] > email:
+    #             node.link = current
+    #             pre.link = node
+    #             break
+    #         else:
+    #             node.link = current.link
+    #             current.link = node
+    # count = count+1
+    # current = head
+    # pre = head
+    # Print_Data(head)
 def Print_Data(start):
-    global count
-    for _ in range(count):
-        print(start.data, end=' ')
-        start=start.link
+    current = start
+    if start is None:
+        return
+    print(current.data, end=' ')
+    while current.link is not None:
+        current = current.link
+        print(current.data, end=' ')
+    print()
 
 head, current, pre = None, None, None
-count = 0
 
 if __name__ == "__main__":
-   Data_assign()
-
+    while True:
+        name = input('이름--> ')
+        if name == '':
+            break
+        email = input('이메일--> ')
+        Data_assign([name,email])
+        Print_Data(head)
 
 
 
