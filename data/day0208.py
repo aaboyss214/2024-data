@@ -1,81 +1,33 @@
 ## 함수 선언 부분 ##
-class TreeNode():
-    def __init__(self):
-        self.left = None
-        self.data = None
-        self.right = None
-
+class Graph() :
+	def __init__ (self, size) :
+		self.SIZE = size
+		self.graph = [ [0 for _ in range(size)] for _ in range(size) ]
 
 ## 전역 변수 선언 부분 ##
-memory = []
-root = None
-nameAry = ['블랙핑크', '레드벨벳', '마마무', '에이핑크', '걸스데이', '트와이스']
+G1, G3 = None, None
 
 ## 메인 코드 부분 ##
-node = TreeNode()
-node.data = nameAry[0]
-root = node
-memory.append(node)
+G1 = Graph(4)
+G1.graph[0][1] = 1; G1.graph[0][2] = 1; G1.graph[0][3] = 1
+G1.graph[1][0] = 1; G1.graph[1][2] = 1
+G1.graph[2][0] = 1; G1.graph[2][1] = 1; G1.graph[2][3] = 1
+G1.graph[3][0] = 1; G1.graph[3][2] = 1
 
-for name in nameAry[1:]:
 
-    node = TreeNode()
-    node.data = name
+print('## G1 무방향 그래프 ##')
+for row in range(G1.SIZE) :
+	for col in range(G1.SIZE) :
+		print(G1.graph[row][col], end=' ')
+	print() #줄바꿈
 
-    current = root
-    while True:
-        if name < current.data:
-            if current.left == None:
-                current.left = node
-                break
-            current = current.left
-        else:
-            if current.right == None:
-                current.right = node
-                break
-            current = current.right
 
-    memory.append(node)
+G3 = Graph(4)
+G3.graph[0][1] = 1; G3.graph[0][2] = 1
+G3.graph[3][0] = 1; G3.graph[3][2] = 1
 
-deleteName = '에이핑크'
-
-current = root
-parent = None
-while True:
-    if deleteName == current.data:
-
-        if current.left is None and current.right is None:
-            if parent.left == current:
-                parent.left = None
-            else:
-                parent.right = None
-            del (current)
-
-        elif current.left is not None and current.right is None:
-            if parent.left == current:
-                parent.left = current.left
-            else:
-                parent.right = current.left
-            del (current)
-
-        elif current.left is None and current.right is not None:
-            if parent.left == current:
-                parent.left = current.right
-            else:
-                parent.right = current.right
-            del (current)
-
-        print(deleteName, '이(가) 삭제됨.')
-        break
-    elif deleteName < current.data:
-        if current.left == None:
-            print(deleteName, '이(가) 트리에 없음')
-            break
-        parent = current
-        current = current.left
-    else:
-        if current.right == None:
-            print(deleteName, '이(가) 트리에 없음')
-            break
-        parent = current
-        current = current.right
+print('## G3 방향 그래프 ##')
+for row in range(G3.SIZE) :
+	for col in range(G3.SIZE) :
+		print(G3.graph[row][col], end=' ')
+	print()
