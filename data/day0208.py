@@ -37,28 +37,28 @@ for name in nameAry[1:]:
 
     memory.append(node)
 
-deleteName = '마마무'
+deleteName = '에이핑크'
 
 current = root
 parent = None
 while True:
     if deleteName == current.data:
 
-        if current.left == None and current.right == None:
+        if current.left is None and current.right is None:
             if parent.left == current:
                 parent.left = None
             else:
                 parent.right = None
             del (current)
 
-        elif current.left != None and current.right == None:
+        elif current.left is not None and current.right is None:
             if parent.left == current:
                 parent.left = current.left
             else:
                 parent.right = current.left
             del (current)
 
-        elif current.left == None and current.right != None:
+        elif current.left is None and current.right is not None:
             if parent.left == current:
                 parent.left = current.right
             else:
