@@ -1,2 +1,2 @@
-for _ in range(1):
-    print('a')
+for _ in range(6):
+    print('123')
