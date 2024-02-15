@@ -1,32 +1,68 @@
 import random
-
+import math
 class Node():
     def __init__ (self):
         self.data = None
         self.link = None
 
-head, current, pre = None, None, None
+Arr=[]
+head=None
+current=None
+pre=None
+def sort_node(i):
+    global Arr, head, current, pre
 
-def generate_node():
-    global head, current, pre
-    for _ in range(6):
-        node = Node()
-        a = random.randint(1,45)
-        node.data = a
-        if head is None:
-            head = node
-            current = node
+    node = Node()
+    node.data=Arr[i]
+
+    if head is None:
+        head = node
+        return
+
+    current = head
+    # 제일 앞에 올때
+    if node.data[3] < current.data[3]:
+        node.link = head
+        head = node
+        return
+    # 중간에 올때
+
+
+    while current.link is not None:
+        pre = current
+        current = current.link
+        if current.data[3]>=node.data[3]:
+            pre.link = node
+            node.link = current
+            return
         else:
+            pass
 
-            while current.link is not None:
+
+    # 제일 끝에 올때
+    current.link = node
+    node.link = head
+
+def print_node() :
+    global head
+    current = head
+    while True:
+        if current == None:
+            pass
+        else:
+            while current.link != head:
+                print(current.data[0], '편의점, 거리:', current.data[3])
                 current = current.link
-            current.link=node
-        print_node(current)
 
-
-def print_node(start):
-    print(start.data, end=' ')
+            print()
 
 
 if __name__=="__main__":
-    generate_node()
+    for i in range(10):
+        x=random.randint(1,100)
+        y=random.randint(1,100)
+        location = chr(ord('A')+i)
+        Arr.append((location, x , y, math.sqrt(pow(x,2)+pow(y,2))))
+        sort_node(i)
+        print_node()
+
