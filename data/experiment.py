@@ -1,12 +1,5 @@
-
-a = 2
-def change():
-    global a
-    a=3
-def b():
-    global a
-    print(a)
-if __name__=="__main__":
-    b()
-    change()
-    b()
+import random
+import time
+while True:
+    time.sleep(1)
+    print(random.randint(1,45))

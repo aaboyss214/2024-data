@@ -1,68 +1,45 @@
-import random
-import math
 class Node():
     def __init__ (self):
         self.data = None
-        self.link = None
+        self.plink = None
+        self.nlink = None
 
-Arr=[]
-head=None
-current=None
-pre=None
-def sort_node(i):
-    global Arr, head, current, pre
-
+def link_node(i):
+    global head, current, Arr
     node = Node()
     node.data=Arr[i]
-
     if head is None:
         head = node
-        return
+        current = node
+    else:
+        current.plink = node
+        node.nlink = current
+        current = node
 
+
+head, current, pre = None, None, None
+Arr=['다현','정연','쯔위','사나','지효']
+
+def print_plink():
+    global head, current
     current = head
-    # 제일 앞에 올때
-    if node.data[3] < current.data[3]:
-        node.link = head
-        head = node
-        return
-    # 중간에 올때
+    print('정방향 --->  ',current.data, end=' ')
+    while current.plink is not None:
+        current=current.plink
+        print(current.data, end=' ')
+    print()
 
 
-    while current.link is not None:
-        pre = current
-        current = current.link
-        if current.data[3]>=node.data[3]:
-            pre.link = node
-            node.link = current
-            return
-        else:
-            pass
-
-
-    # 제일 끝에 올때
-    current.link = node
-    node.link = head
-
-def print_node() :
-    global head
-    current = head
-    while True:
-        if current == None:
-            pass
-        else:
-            while current.link != head:
-                print(current.data[0], '편의점, 거리:', current.data[3])
-                current = current.link
-
-            print()
+def print_nlink():
+    global current
+    print('역방향 --->  ', current.data, end=' ')
+    while current.nlink is not None:
+        current = current.nlink
+        print(current.data, end=' ')
 
 
 if __name__=="__main__":
-    for i in range(10):
-        x=random.randint(1,100)
-        y=random.randint(1,100)
-        location = chr(ord('A')+i)
-        Arr.append((location, x , y, math.sqrt(pow(x,2)+pow(y,2))))
-        sort_node(i)
-        print_node()
-
+    for i in range(5):
+        link_node(i)
+    print_plink()
+    print_nlink()
