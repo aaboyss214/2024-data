@@ -1,63 +1,50 @@
-## 함수 선언 부분 ##
 import random
-def isQueueFull() :
-	global SIZE, queue, front, rear
-	if (rear == SIZE-1) :
-		return True
-	else :
-		return False
-
-def isQueueEmpty() :
-	global SIZE, queue, front, rear
-	if (front == rear) :
-		return True
-	else :
-		return False
-
-def enQueue(data) :
-	global SIZE, queue, front, rear
-	if (isQueueFull()) :
-		print("큐가 꽉 찼습니다.")
-		return
-	rear += 1
-	queue[rear] = data
-
-def deQueue() :
-	global SIZE, queue, front, rear
-	if (isQueueEmpty()) :
-		print("큐가 비었습니다.")
-		return None
-	front += 1
-	data = queue[front]
-	queue[front] = None
-
-	for i in range(front + 1, rear + 1): 	# 모든 사람을 한칸씩 앞으로 당긴다.
-		queue[i - 1] = queue[i]
-		queue[i] = None
-	front = -1
-	rear -= 1
-
-	return data
-
-def peek() :
-	global SIZE, queue, front, rear
-	if (isQueueEmpty()) :
-		print("큐가 비었습니다.")
-		return None
-	return queue[front+1]
+## 함수 선언 부분 ##
+class TreeNode() :
+	def __init__ (self) :
+		self.left = None
+		self.data = None
+		self.right = None
 
 ## 전역 변수 선언 부분 ##
-SIZE = 5
-queue = [ None for _ in range(SIZE) ]
-front = rear = -1
+root = None
+dataAry = ['바나나맛우유', '레쓰비캔커피', '츄파춥스', '도시락',  '삼다수', '코카콜라', '삼각김밥']
+sellAry = [ random.choice(dataAry) for _ in  range(20)]
 
-if __name__=="__main__":
-	arr = ['정국','뷔','지민','진','슈가']
-	random.shuffle(arr)
-	for i in range(len(arr)):
-		enQueue(arr[i])
+print('오늘 판매된 물건(중복O) -->', sellAry)
 
-	while rear != -1:
-		print("대기 줄 상태: ",queue)
-		print(deQueue(),'님 식당에 들어감')
-	print('식당 영업 종료!')
+## 메인 코드 부분 ##
+node = TreeNode()
+node.data = sellAry[0]
+root = node
+
+for name in sellAry[1:] :
+
+	node = TreeNode()
+	node.data = name
+
+	current = root
+	while True :
+		if name == current.data :
+			break
+		if name < current.data :
+			if current.left == None :
+				current.left = node
+				break
+			current = current.left
+		else :
+			if current.right == None :
+				current.right = node
+				break
+			current = current.right
+print("이진 탐색 트리 구성 완료!")
+
+def preorder(node) :
+	if node == None :
+		return
+	print(node.data, end = ' ')
+	preorder(node.left)
+	preorder(node.right)
+
+print('오늘 판매된 종류(중복X)--> ', end = ' ')
+preorder(root)
