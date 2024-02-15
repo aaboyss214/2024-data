@@ -1,4 +1,4 @@
-import random
+## 함수 선언 부분 ##
 def isStackFull() :
 	global SIZE, stack, top
 	if (top >= SIZE-1) :
@@ -34,22 +34,40 @@ def peek() :
 	if (isStackEmpty()) :
 		return None
 	return stack[top]
-SIZE = 10
-stack = [ None for _ in range(SIZE)]
+
+## 전역 변수 선언 부분 ##
+SIZE = 100
+stack = [ None for _ in range(SIZE) ]
 top = -1
 
-if __name__=="__main__":
-	arr=["빨강", "파랑", "초록", "노랑", "보라", "주황"]
-	random.shuffle(arr)
-	print('과자집에 가는길 : ')
-	for stone in arr:
-		push(stone)
-		print(stone, '-->', end='')
-	print('과자집')
+## 메인 코드 부분 ##
+if __name__ == "__main__" :
 
-	print('우리집에 가는길 : ')
-	while top != -1:
-		print(pop(), '-->', end='')
-	print('우리집')
+	with open("진달래꽃.txt", 'r', encoding='UTF8') as rfp :
+		lineAry = rfp.readlines()
 
+	print("----- 원본 -----")
+	for line in lineAry :
+		push(line)
+		print(line, end = '')
+	print()
 
+	print("----- 거꾸로 처리된 결과 -----")
+	while True :
+		line = pop()
+		if line == None :
+			break
+
+		miniStack = [None for _ in range(len(line))]
+		miniTop = -1
+
+		for ch in line :
+			miniTop += 1
+			miniStack[miniTop] = ch
+
+		while True :
+			if miniTop == -1 :
+				break
+			ch = miniStack[miniTop]
+			miniTop -= 1
+			print(ch, end = ' ')
