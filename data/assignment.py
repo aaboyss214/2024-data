@@ -6,7 +6,7 @@ class TreeNode() :
 		self.data = None
 		self.right = None
 
-## 전역 변수 선언 부분 ##
+## 전역 변수 선언 부분
 root = None
 dataAry = ['바나나맛우유', '레쓰비캔커피', '츄파춥스', '도시락',  '삼다수', '코카콜라', '삼각김밥']
 sellAry = [ random.choice(dataAry) for _ in  range(20)]

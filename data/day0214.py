@@ -1,37 +1,50 @@
-from collections import deque
+import random
+## 함수 선언 부분 ##
+class TreeNode() :
+	def __init__ (self) :
+		self.left = None
+		self.data = None
+		self.right = None
 
-# input_data = list(map(int, input().split()))
-# print(input_data)
-# n=input_data[0]
-# m=input_data[1]
-# k=input_data[2]
-# x=input_data[3]
-# print(n, m, k, x)
+## 전역 변수 선언 부분
+root = None
+dataAry = ['바나나맛우유', '레쓰비캔커피', '츄파춥스', '도시락',  '삼다수', '코카콜라', '삼각김밥']
+sellAry = [ random.choice(dataAry) for _ in  range(20)]
 
-n, m, k, x = map(int, input().split())
-# print(n, m, k, x)
-g=[[] for _ in range(n+1)]
+print('오늘 판매된 물건(중복O) -->', sellAry)
 
-for _ in range(m):
-    start, end = map(int, input().split())
-    g[start].append(end)
+## 메인 코드 부분 ##
+node = TreeNode()
+node.data = sellAry[0]
+root = node
 
-d = [-1]*(n+1)
-d[x] = 0
+for name in sellAry[1:] :
 
-q=deque([x])
-while q:
-    now = q.popleft()
-    for next in g[now]:
-        if d[next] == -1:
-            d[next] = d[now] + 1
-            q.append(next)
+	node = TreeNode()
+	node.data = name
 
-check = False
-for i in range(1, n+1):
-    if d[i] == k:
-        print(i)
-        check = True
+	current = root
+	while True :
+		if name == current.data :
+			break
+		if name < current.data :
+			if current.left == None :
+				current.left = node
+				break
+			current = current.left
+		else :
+			if current.right == None :
+				current.right = node
+				break
+			current = current.right
+print("이진 탐색 트리 구성 완료!")
 
-if check == False:
-    print(-1)
+def preorder(node) :
+	if node == None :
+		return
+	print(node.data, end = ' ')
+	preorder(node.left)
+	preorder(node.right)
+
+print('오늘 판매된 종류(중복X)--> ', end = ' ')
+preorder(root)
