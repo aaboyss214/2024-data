@@ -1,21 +1,27 @@
 T = int(input())
 for test_case in range(1,T+1):
-    n = int(input())
-    arr = [input().split() for _ in range(n)]
+    n, m = map(int,input().split())
+    max = 0
+    #대소는 정해져있지 않다.
 
-    arr1 = arr#270
-    for i in range(n):
-        arr1[i].reverse()
-    arr1 = list(zip(*arr1))
+    arr1 = list(map(int, input().split()))
+    arr2 = list(map(int, input().split()))
 
-    arr2 = arr#90
-    arr2.reverse()
-    arr2 = list(zip(*arr2))
+    if n >= m:
+        big_arr = arr1
+        small_arr = arr2
+        big = n
+        small = m
+    else:
+        big_arr = arr2
+        small_arr = arr1
+        big = m
+        small = n
 
-    arr3 = arr#180
-
-    print(f'#{test_case}')
-    for j in range(n):
-        print(''.join(arr2[n-1-j]), end=' ')
-        print(''.join(arr3[j]), end=' ')
-        print(''.join(arr1[j]))
+    for j in range(big - small +1):
+        sum = 0
+        for i in range(small):
+            sum = sum + small_arr[i]*big_arr[j+i]
+        if sum >= max:
+            max = sum
+    print(f'#{test_case} {max}')
