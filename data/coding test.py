@@ -1,11 +1,21 @@
 T = int(input())
 for test_case in range(1,T+1):
-    money = int(input())
-    answer=[0]*8
-    charge=[50000,10000,5000,1000,500,100,50,10]
-    for i in range(8):
-    if money//charge[i] > 0:
-    answer[i] = money//charge[i]
-    money = money%charge[i]
+    n = int(input())
+    arr = [input().split() for _ in range(n)]
+
+    arr1 = arr#270
+    for i in range(n):
+        arr1[i].reverse()
+    arr1 = list(zip(*arr1))
+
+    arr2 = arr#90
+    arr2.reverse()
+    arr2 = list(zip(*arr2))
+
+    arr3 = arr#180
+
     print(f'#{test_case}')
-    print(*answer)
+    for j in range(n):
+        print(''.join(arr2[n-1-j]), end=' ')
+        print(''.join(arr3[j]), end=' ')
+        print(''.join(arr1[j]))
