@@ -1,18 +1,22 @@
 T = int(input())
-for test_case in range(1, T + 1):
-    number_alp = int(input())
-    arr = []
-    count = 0
-    for _ in range(number_alp):
-        alp , n = map(str, input().split())
-        arr.append(alp)
-        arr.append(int(n))
-    print(f'#{test_case}')
-    for i in range(number_alp):
+def divider(number_):
+    arr=[2,3,5,7,11]
+    arr2 = []
+    for i in arr:
+        count = 0
+        while True:
+            if number_ % i == 0:
+                number_ = number_ / i
+                count = count + 1
+            else:
+                arr2.append(count)
+                break
+    return arr2
 
-        for _ in range(arr[2*i +1]):
-            print(arr[2*i],end='')
-            count = count +1
-            if count % 10 == 0:
-                print()
+for test_case in range(1, T + 1):
+    number = int(input())
+    print(f'#{test_case}', end=' ')
+    number2 = divider(number)
+    for i in range(5):
+        print(number2[i],end=' ')
     print()
