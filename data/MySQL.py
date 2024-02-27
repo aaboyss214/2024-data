@@ -21,7 +21,7 @@
 # finally:
 #     cursor.close()
 #     conn.close()
-"""
+"""o
 2번 문제 답"
 """
 import pymysql
