@@ -1,15 +1,15 @@
 T = int(input())
-
 for test_case in range(1, T+1):
-    number = int(input())
+    test_case_ = int(input())
     arr = list(map(int,input().split()))
-    min = abs(arr[0])
-    count = 0
-    for i in range(len(arr)):
-        if min > abs(arr[i]):
-            min = abs(arr[i])
-        elif min == abs(arr[i]):
-            count = count + 1
-        else:
-            pass
-    print(f'#{test_case} {min} {count}')
+    set_ = set(arr)
+    max = 0
+    max_count = 0
+    for i in set_:
+        if arr.count(i) > max_count:
+            max_count = arr.count(i)
+            max = i
+        elif arr.count(i) == max_count:
+            if i > max:
+                max = i
+    print(f'#{test_case} {max}')
