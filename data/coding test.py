@@ -1,14 +1,15 @@
 T = int(input())
 
 for test_case in range(1, T+1):
-    arr = []
-    count = 2
-    number = input()
-    number2 = number
-    while len(arr) != 10:
-        for i in range(len(number2)):
-            if int(number2[i]) not in set(arr):
-                arr.append(int(number2[i]))
-        number2 = str(int(number) * count)
-        count = count + 1
-    print(f'#{test_case} {(count-2)*int(number)}')
+    number = int(input())
+    arr = list(map(int,input().split()))
+    min = abs(arr[0])
+    count = 0
+    for i in range(len(arr)):
+        if min > abs(arr[i]):
+            min = abs(arr[i])
+        elif min == abs(arr[i]):
+            count = count + 1
+        else:
+            pass
+    print(f'#{test_case} {min} {count}')
