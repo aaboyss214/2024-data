@@ -1,15 +1,17 @@
-T = int(input())
-for test_case in range(1, T+1):
-    test_case_ = int(input())
-    arr = list(map(int,input().split()))
-    set_ = set(arr)
-    max = 0
-    max_count = 0
-    for i in set_:
-        if arr.count(i) > max_count:
-            max_count = arr.count(i)
-            max = i
-        elif arr.count(i) == max_count:
-            if i > max:
-                max = i
-    print(f'#{test_case} {max}')
+t = int(input())
+for test_case in range(1, t+1):
+    str_ = input()
+    result = True
+    if str_ != str_[::-1]:
+        result = False
+        print(2)
+    elif str_[:len(str_)//2] != str_[:len(str_)//2:-1]:
+        result = False
+        print(3)
+    elif str_[len(str_)//2+1:] != str_[-1:-(len(str_)//2+1):-1]:
+        result = False
+        print(4)
+    if result:
+        print(f'#{test_case} YES')
+    else:
+        print(f'#{test_case} NO')
