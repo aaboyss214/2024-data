@@ -46,5 +46,25 @@
 # for i in dict.items():
 #     print(i)
 
-arr = [1,2,3]
-print([*arr,1,2])
+# import time
+# n = 100000
+# start = time.time()
+# squares = [k*k for k in range(1, n+1)]
+# end = time.time()
+# print(f'{start-end}')
+
+# start = time.time()
+# squares = []
+# for k in range(1, n+1):
+#     squares.append(k*k)
+# end = time.time()
+# print(f'{start-end}')
+import time
+start = time.time()
+document = 'Helloabcacdafdqwedfsfsadfasfdasdfsfrqwefoqwjfoqwj;qweiofjoqjef'
+letters = ''
+for c in document:
+    if c.islower():
+        letters += c
+end = time.time()
+print(f'{letters} {end-start:0.7}')
