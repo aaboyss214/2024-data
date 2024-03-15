@@ -59,12 +59,30 @@
 #     squares.append(k*k)
 # end = time.time()
 # print(f'{start-end}')
-import time
-start = time.time()
-document = 'Helloabcacdafdqwedfsfsadfasfdasdfsfrqwefoqwjfoqwj;qweiofjoqjef'
-letters = ''
-for c in document:
-    if c.islower():
-        letters += c
-end = time.time()
-print(f'{letters} {end-start:0.7}')
+
+# import time
+# start = time.time()
+# document = 'Helloabcacdafdqwedfsfsadfasfdasdfsfrqwefoqwjfoqwj;qweiofjoqjef'
+# letters = ''
+# for c in document:
+#     if c.islower():
+#         letters += c
+# end = time.time()
+# print(f'{letters} {end-start:0.7}')
+
+# import sys
+
+# empty_list = []
+# int_list = [1]
+
+# print("빈 리스트의 크기:", sys.getsizeof(empty_list), "바이트")
+# print("정수를 포함한 리스트의 크기:", sys.getsizeof(int_list), "바이트")
+
+arr = [1,2,3,4]
+ext = [5,6]
+arr.extend(ext)
+print(arr)
+ext[1]= 7
+print(arr)
+print(ext)
+
