@@ -78,11 +78,36 @@
 # print("빈 리스트의 크기:", sys.getsizeof(empty_list), "바이트")
 # print("정수를 포함한 리스트의 크기:", sys.getsizeof(int_list), "바이트")
 
-arr = [1,2,3,4]
-ext = [5,6]
-arr.extend(ext)
-print(arr)
-ext[1]= 7
-print(arr)
-print(ext)
+# arr = [1,2,3,4]
+# ext = [5,6]
+# arr.extend(ext)
+# print(arr)
+# ext[1]= 7
+# print(arr)
+# print(ext)
 
+# arr = [1,2,3,4,5]
+# arr1 = arr[1:3]
+# print(arr1)
+
+def evalRPN(tokens):
+    stack = []
+    operators = {"+": lambda x, y: x + y,
+                 "-": lambda x, y: x - y,
+                 "*": lambda x, y: x * y,
+                 "/": lambda x, y: int(x / y)}
+
+    for token in tokens:
+        if token in operators:
+            y = stack.pop()
+            x = stack.pop()
+            operation = operators[token]
+            result = operation(x, y)
+            stack.append(result)
+        else:
+            stack.append(int(token))
+
+    return stack[-1]
+
+rpn_expression = ['1','2','3','+','4','5','6','*','-','7','*','+','-','8','9','*','+']
+print(evalRPN(rpn_expression))
