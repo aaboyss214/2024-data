@@ -1,7 +1,27 @@
-# 대칭차집합은 전체 집합에서 교집합 뺀것
-# 대칭차집합 원소 개수 출력
+#11111111111111111111111111111111
+input()
+list1 = input().split()
+input()
+list2 = input().split()
+print(' '.join([ str(list1.count(a)) for a in list2 ]))
 
-a, b = map(int, input().split())
-arr_a = set(map(int, input().split()))
-arr_b = set(map(int, input().split()))
-print((arr_a|arr_b)-(arr_a&arr_b))
+
+#22222222222222222222222222222222
+# from collections import Counter
+
+# input()
+# list1 = input().split()
+# input()
+# list2 = input().split()
+# counter = Counter(list1)
+# print(' '.join(str(counter[a]) for a in list2))
+
+#33333333333333333333333333333333
+# input()
+# list1 = input().split()
+# input()
+# list2 = input().split()
+# counts = {}
+# for item in list1:
+#     counts[item] = counts.get(item, 0) + 1
+# print(' '.join(str(counts.get(item, 0)) for item in list2))
