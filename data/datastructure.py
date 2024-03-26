@@ -90,24 +90,138 @@
 # arr1 = arr[1:3]
 # print(arr1)
 
-def evalRPN(tokens):
-    stack = []
-    operators = {"+": lambda x, y: x + y,
-                 "-": lambda x, y: x - y,
-                 "*": lambda x, y: x * y,
-                 "/": lambda x, y: int(x / y)}
+# def evalRPN(tokens):
+#     stack = []
+#     operators = {"+": lambda x, y: x + y,
+#                  "-": lambda x, y: x - y,
+#                  "*": lambda x, y: x * y,
+#                  "/": lambda x, y: int(x / y)}
 
-    for token in tokens:
-        if token in operators:
-            y = stack.pop()
-            x = stack.pop()
-            operation = operators[token]
-            result = operation(x, y)
-            stack.append(result)
-        else:
-            stack.append(int(token))
+#     for token in tokens:
+#         if token in operators:
+#             y = stack.pop()
+#             x = stack.pop()
+#             operation = operators[token]
+#             result = operation(x, y)
+#             stack.append(result)
+#         else:
+#             stack.append(int(token))
 
-    return stack[-1]
+#     return stack[-1]
 
-rpn_expression = ['1','2','3','+','4','5','6','*','-','7','*','+','-','8','9','*','+']
-print(evalRPN(rpn_expression))
+# rpn_expression = ['1','2','3','+','4','5','6','*','-','7','*','+','-','8','9','*','+']
+# print(evalRPN(rpn_expression))
+
+# define a new type of exception for stack ADT
+# class Empty(Exception):
+#   ''' Error attempting to access an element from an empty container.'''
+#   pass
+
+# class ArrayStack:
+#   ''' LIFO stack implementation using a Python List as underlying storage'''
+
+#   def __init__(self):# constructor
+#     ''' create an empty stack'''
+#     self._data = []    # nonpublic list instance
+
+#   def __len__(self):
+#     ''' return the number of elements in a stack'''
+#     return len(self._data)
+
+#   def is_empty(self):
+#     ''' Return True if the stack is empty'''
+#     return len(self._data) == 0
+
+#   def push(self, e):
+#     ''' Add element e to the top of the stack'''
+#     self._data.append(e)  # new item stored at end of a list
+
+#   def top(self):
+#     '''
+#     Return the element at the top of the stack
+#     Raise Empty Exception if the stack is empty
+#     '''
+#     if self.is_empty():
+#       raise Empty('Stack is Empty')
+#     return self._data[-1]           # the last item in the list
+
+#   def pop(self):
+#     '''
+#     Remove and return the element from the top of the stack
+#     Raise Empty excepion if the stack is empty
+#     '''
+#     if self.is_empty():
+#       raise Empty('Stack is Empty')
+#     return self._data.pop()
+
+#   def __str__(self):
+#     '''
+#     A string representation of the stack
+#     An arrow shows the top of the stack
+#     '''
+#     return ''.join(str(self._data)) +'>'
+  
+#   # Creating a stack
+# def create_stack():
+#     stack = []
+#     return stack
+
+
+# # Creating an empty stack
+# def check_empty(stack):
+#     return len(stack) == 0
+
+
+# # Adding items into the stack
+# def push(stack, item):
+#     stack.append(item)
+#     print("pushed item: " + item)
+
+
+# # Removing an element from the stack
+# def pop(stack):
+#     if (check_empty(stack)):
+#         return "stack is empty"
+
+#     return stack.pop()
+
+# # reversing data using a stack
+# def reverse_file(filename):
+#   ''' Overwrite given file with its conent line-by-line reversed'''
+
+#   S = ArrayStack()
+#   original = open(filename)
+#   for line in original:
+#     S.push(line.rstrip('\n')) # we will re-insert newlines when writing
+#   original.close()
+
+#   # Now we overwrite with contents in LIFO order
+#   output = open(filename, 'w') # reopening file overwrites original
+#   while not S.is_empty():
+#     output.write(S.pop() + '\n') # re-insert newline characters
+#   output.close()
+
+# ###########
+# file = open("initial.txt", 'w')
+# file.write("I am going home.\n")
+# file.write("Today is a holiday.")
+# file.close()
+
+# type initial.txt
+# print('\n\n')
+# reverse_file("initial.txt")
+# type initial.txt
+
+# import collections
+
+# D = collections.deque()
+# D.appendleft(15)
+# D.appendleft(12); D.append(66)
+# print(D)
+
+# from collections import deque
+
+# D = deque()
+# D.appendleft(55)
+# a = D.is_empty()
+# print(a)
