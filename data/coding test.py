@@ -1,10 +1,9 @@
 #11111111111111111111111111111111
-input()
-list1 = input().split()
-input()
-list2 = input().split()
-print(' '.join([ str(list1.count(a)) for a in list2 ]))
-
+# input()
+# list1 = input().split()
+# input()
+# list2 = input().split()
+# print(' '.join([ str(list1.count(a)) for a in list2 ]))
 
 #22222222222222222222222222222222
 # from collections import Counter
@@ -25,3 +24,4 @@ print(' '.join([ str(list1.count(a)) for a in list2 ]))
 # for item in list1:
 #     counts[item] = counts.get(item, 0) + 1
 # print(' '.join(str(counts.get(item, 0)) for item in list2))
+
