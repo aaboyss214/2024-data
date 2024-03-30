@@ -1,34 +1,47 @@
-# count, word_len = map(int,input().split())
-# dic1 = {}
-# for _ in range(count):
-#     word = input()
-#     if len(word) >= word_len:
-#         if word in dic1:
-#             dic1[word] += 1
-#         else:
-#             dic1[word] = 1
+# # '''
+# # 4      << 자료구조 개수
+# # 0 1 1 0 << 큐or스택 결정 큐 = 0 스택 = 1
+# # 1 2 3 4 << 큐 스택 스택 큐
+# # 3 << 삽입할 수열의 길이
+# # 2 4 7 << 삽입할 수열
+# # 출력은 pop되는 걸 받는 듯
+# # 스택 = 후입선출
+# # 큐 = 선입선출
+# # 팝된걸 다음에 넣고 또 팝된걸 다음에 넣고 마지막으로 pop된걸 출력하는 시스템
+# # 이해했다..드디어..
 
 
+# # 자리수 만큼의 리스트를 만드는건 런타임 에러 나올려나
+# # 어떡하지.. 그냥 조건문 사용해서 리스트 하나로 해야할듯
 
+# # '''
 
-def custom_sort(word_list, m):
-    # 단어의 길이가 m 이상인 단어만 선택
-    filtered_words = [word for word in word_list if len(word) >= m]
+# m = int(input())
+# arr1 = list(map(int,input().split()))
 
-    # 각 단어의 빈도수를 저장하는 딕셔너리 생성
-    word_freq = {}
-    for word in filtered_words:
-        word_freq[word] = word_freq.get(word, 0) + 1
+# arr2 = list(map(int,input().split()))
+# n = int(input())
+# arr3 = list(map(int,input().split()))
 
-    # 우선순위에 따라 정렬
-    sorted_words = sorted(word_freq, key=lambda x : (-word_freq.get(x, 0), -len(x), x))
+# arr2=[arr2[i] for i in range(len(arr2)) if arr1[i] == 0]
 
-    return sorted_words
+# for element in arr3:
+#     for i in range(len(arr2)):
+#             element, arr2[i] = arr2[i], element
+#     print(element, end=' ')
 
-# 입력 받기
-n , m = map(int, input().split())
-words = [input() for _ in range(n)]
+from collections import deque
 
-# 결과 출력
-for i in custom_sort(words, m):
-    print(i)
+n = int(input())
+arr1 = list(map(int, input().split()))
+arr2 = list(map(int, input().split()))
+m = int(input())
+arr3 = list(map(int, input().split()))
+
+result = deque(arr3)
+for i in range(n):
+    if arr1[i] == 0:#큐
+        result.appendleft(arr2[i])
+print(result)
+for i in range(m):
+    print(result.popleft(), end=' ')
