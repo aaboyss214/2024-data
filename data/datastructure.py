@@ -225,3 +225,113 @@
 # D.appendleft(55)
 # a = D.is_empty()
 # print(a)
+
+class Empty(Exception):
+  ''' Error attempting to access an element from an empty container.'''
+  pass
+
+class LinkedStack:
+
+    # class Node:#nested class
+    #     __slots__=['_element','_next']
+
+    #     def __init__(self, element, next):
+    #         self._element = element #노드의 데이터
+    #         self._next = next #노드의 포인터
+    class Node:
+        def __init__(self,element,next):
+            self._element = element
+            self._next = next
+    
+    # def __init__(self):
+    #     self._head = None #헤드 노드                  
+    #     self._size = 0 #노드 개수
+
+    def __init__(self):
+        self._head = None
+        self._size = 0
+
+
+    # def __len__(self):
+    #     return self._size
+    
+    def __len__(self):
+        return self._size
+
+    # def is_empty(self):
+    #     return self._size == 0
+
+    def is_empty(self):
+        return self._size == 0
+    
+
+    
+    # def top(self):
+    #     if self.is_empty():
+    #         raise Empty('Stack is Empty')
+    #     return self._head._element
+
+    def top(self):
+        if self._size == 0:
+            raise Empty('Stack is Empty')
+        return self._head._element
+    
+    # def push(self,e): #push할떄 노드를 만든다. self가 S가 된다. nested 클래스를 속성처럼 쓰는 구나 여기서 self._head를 노드로 만들었으니 self._head._element이런식으로 쓸수 있다.
+    #     self._head = self.Node(e,self._head)
+    #     self._size += 1
+
+    def push(self,e):
+        self._head = self.Node(e,self._head)
+        self._size += 1
+
+    # def pop(self):
+    #     if self.is_empty():
+    #         raise Empty('Stack is Empty')
+    #     answer = self._head._element
+    #     self._head = self._head._next
+    #     self._size -= 1
+    #     return answer
+    
+    def pop(self):
+        if self._size == 0:
+            raise Empty('Stack is Empty')
+        answer = self._head._element
+        self._head = self._head._next
+        self._size -= 1 
+        return answer
+
+    # def __str__(self):
+    #     ''' String representation of the stack'''
+    #     arr = ''
+    #     start = self._head
+    #     for i in range(self._size):
+    #         arr += str(start._element) +', '
+    #         start = start._next
+
+    #     return '<' + arr + ']'
+
+    def __str__(self):
+        arr = ''
+        start = self._head
+        for i in range(self._size):
+            arr += str(start._element) + ', '
+            start = start._next
+        return '<'+arr+']'
+            
+if __name__ == '__main__':
+
+  S = LinkedStack()
+  S.push(10)
+  S.push(15)
+  S.push(3)
+  S.push(17)
+  S.push(0)
+  S.push(2)
+  print('Stack Length: ', len(S))
+  print('Stack S: ', S)
+
+  print('Pop :', S.pop())
+  print('Pop :', S.pop())
+
+  print('Stack Length: ', len(S))
+  print('Stack S: ', S)
