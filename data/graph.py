@@ -17,3 +17,4 @@ arr = ['문별','솔라','휘인','쯔위','선미','화사']
 
 visited = [0]*len(graph)
 dfs(graph, 0, visited)
+

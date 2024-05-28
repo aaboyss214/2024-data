@@ -1,62 +1,122 @@
-# import random
+import tkinter as tk
+from tkinter import messagebox
+import hashlib
+import os
 
-# def num_mafla():
-#     dict1 = {6:[2,2,1,1],7:[3,2,1,1],8:[3,3,1,1],9:[4,3,1,1],10:[4,4,1,1]}
-#     dict2 = {0:'당신의 직업은 마피아입니다.',1:'당신의 직업은 시민입니다.',2:'당신의 직업은 경찰입니다.',3:'당신의 직업은 의사입니다.'}
-#     while True:
-#         number = int(input('인원 수를 입력해주세요 : '))
-#         if number <= 10 and number >= 6:
-#             break
-#         else:
-#             print('마피아 게임의 적정 인원은 6~10명 입니다.')
-#     countlist = dict1[number]            
-#     count = 0
-#     for i in range(number):
-#         with open('{}.txt'.format(i+1),'w',encoding = 'utf-8') as file:
-#             while True:
-#                 randnumber = random.randrange(0,4)
-#                 if countlist[randnumber] > 0:
-#                     file.write(dict2[randnumber])
-#                     countlist[randnumber] = countlist[randnumber] - 1
-#                     break
+USER_FILE = 'users.txt'
 
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def user_exists(username):
+    if not os.path.exists(USER_FILE):
+        return False
+    with open(USER_FILE, 'r') as file:
+        for line in file:
+            stored_username, _ = line.strip().split(',')
+            if stored_username == username:
+                return True
+    return False
+
+def register_user(username, password):
+    if user_exists(username):
+        return False, "Username already exists."
+    hashed_password = hash_password(password)
+    with open(USER_FILE, 'a') as file:
+        file.write(f"{username},{hashed_password}\n")
+    return True, "User registered successfully."
+
+def authenticate_user(username, password):
+    if not os.path.exists(USER_FILE):
+        return False, "No users registered yet."
+    with open(USER_FILE, 'r') as file:
+        for line in file:
+            stored_username, stored_hashed_password = line.strip().split(',')
+            if stored_username == username and stored_hashed_password == hash_password(password):
+                return True, "Login successful."
+    return False, "Invalid username or password."
+
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("User System")
+        self.geometry("1000x500")
         
-# num_mafla() 
+        self.create_widgets()
+
+    def create_widgets(self):
+        self.lbl_title = tk.Label(self, text="Choose an option:")
+        self.lbl_title.pack(pady=10)
 
 
+        self.clear_widgets()
+        self.lbl_title = tk.Label(self, text="Login")
+        self.lbl_title.pack(pady=10)
 
-import random
+        self.lbl_username = tk.Label(self, text="Username:")
+        self.lbl_username.pack()
+        self.ent_username = tk.Entry(self)
+        self.ent_username.pack()
 
-def lotto():
-    arr = []
-    while len(arr) < 6:
-        number = random.randrange(1,46)
-        if number not in arr:
-            arr.append(number)
-    return arr 
+        self.lbl_password = tk.Label(self, text="Password:")
+        self.lbl_password.pack()
+        self.ent_password = tk.Entry(self, show="*")
+        self.ent_password.pack()
 
-def factorial(n):
-    if n == 1:
-        return 1
-    return n*factorial(n-1)
+        self.btn_submit = tk.Button(self, text="Submit", command=self.login)
+        self.btn_submit.pack(pady=10)
 
-def Prob_win(n):
-    return 100/(factorial(45)/(factorial(45-n)*factorial(n)))
+        self.btn_back = tk.Button(self, text="Back", command=self.back_to_main)
+        self.btn_back.pack(pady=5)
 
-num = lotto()
+        self.btn_register = tk.Button(self, text="Register", command=self.show_register)
+        self.btn_register.pack(pady=5)
 
-print('로또 1등 당첨번호는 {},{},{},{},{},{}입니다.'.format(*num))
-print('로또 1등 당첨확률은 {:.7f}% 입니다.'.format(Prob_win(len(num))))
+    def show_register(self):
+        self.clear_widgets()
+        self.lbl_title = tk.Label(self, text="Register")
+        self.lbl_title.pack(pady=10)
 
+        self.lbl_username = tk.Label(self, text="Username:")
+        self.lbl_username.pack()
+        self.ent_username = tk.Entry(self)
+        self.ent_username.pack()
 
-# def N_gram(n,text):
-#     for i in range(len(text)-n+1):
-#         print(text[i:i+n])
-        
+        self.lbl_password = tk.Label(self, text="Password:")
+        self.lbl_password.pack()
+        self.ent_password = tk.Entry(self, show="*")
+        self.ent_password.pack()
 
-# text = input('원하는 text를 입력하세요: ')
-# n = int(input('원하는 N-gram 수를 입력하세요: '))
+        self.btn_submit = tk.Button(self, text="Submit", command=self.register)
+        self.btn_submit.pack(pady=10)
 
-# N_gram(n, text)
+        self.btn_back = tk.Button(self, text="Back", command=self.back_to_main)
+        self.btn_back.pack(pady=5)
 
+    def register(self):
+        username = self.ent_username.get()
+        password = self.ent_password.get()
+        success, message = register_user(username, password)
+        messagebox.showinfo("Register", message)
+        if success:
+            self.back_to_main()
 
+    def login(self):
+        username = self.ent_username.get()
+        password = self.ent_password.get()
+        success, message = authenticate_user(username, password)
+        messagebox.showinfo("Login", message)
+        if success:
+            self.back_to_main()
+
+    def back_to_main(self):
+        self.clear_widgets()
+        self.create_widgets()
+
+    def clear_widgets(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()

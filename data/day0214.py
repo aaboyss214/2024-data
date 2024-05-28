@@ -1,50 +1,68 @@
-import random
-## 함수 선언 부분 ##
-class TreeNode() :
-	def __init__ (self) :
-		self.left = None
-		self.data = None
-		self.right = None
 
-## 전역 변수 선언 부분
-root = None
-dataAry = ['바나나맛우유', '레쓰비캔커피', '츄파춥스', '도시락',  '삼다수', '코카콜라', '삼각김밥']
-sellAry = [ random.choice(dataAry) for _ in  range(20)]
+# print(9//2,-9//2,9//-2,-9//-2)
+# print(9%2,-9%2,9%-2,-9%-2)
 
-print('오늘 판매된 물건(중복O) -->', sellAry)
+# print(bin(25))
 
-## 메인 코드 부분 ##
-node = TreeNode()
-node.data = sellAry[0]
-root = node
+# print(~-25)
 
-for name in sellAry[1:] :
+# number = int(input())
+# for i in range(number):
+#     print(f'{'*'*(i+1):>{number}s}')
 
-	node = TreeNode()
-	node.data = name
+# dirt =  dict(zip(['a','b'],[1,None]))
+# dirt.update([['d',10]])
+# dirt.update({1:1,2:2})
+# dirt.setdefault('c',100)
+# print(dirt)
+# print(dirt.items())
 
-	current = root
-	while True :
-		if name == current.data :
-			break
-		if name < current.data :
-			if current.left == None :
-				current.left = node
-				break
-			current = current.left
-		else :
-			if current.right == None :
-				current.right = node
-				break
-			current = current.right
-print("이진 탐색 트리 구성 완료!")
+# set = {1,2,3}
+# set |= {2,3}
+# print(set)
 
-def preorder(node) :
-	if node == None :
-		return
-	print(node.data, end = ' ')
-	preorder(node.left)
-	preorder(node.right)
+# table = str.maketrans('aeiou', '12345')
+# print('apple'.translate(table))
 
-print('오늘 판매된 종류(중복X)--> ', end = ' ')
-preorder(root)
+# print('hello'.zfill(10))
+# print('hello'.rjust(10,'0'))
+# print('hello'.upper())
+# print('%05.2f'%2.33)
+# print('{0:>10}'.format('hello') )
+# print('{0:1>10}'.format('hello') )
+# print('{0:0>10.2f}'.format(1))
+# print('{0:010.2f}'.format(1))
+# print('{0:03d}'.format(1))
+
+# dict = dict()
+# dict.update(a=1)
+# print(dict)
+
+# list1 = [1, 2, 3]
+# list2 = ['a', 'b', 'c']
+
+# zipped = zip(list1, list2)
+
+# dict.update(zipped)
+# print(dict)
+# dict2 = dict.fromkeys(list1)
+# print(dict2)
+
+# a=1
+# print('{a}'.format(a=11))
+
+# with open('score.txt','r',encoding='utf-8') as file:
+#     for i in file:
+#         print(i.strip('\n'))
+
+# with open('score.txt','r',encoding='utf-8') as file:
+#     print(file.read())
+
+
+# with open('score.txt','r',encoding='utf-8') as file:
+#     print(file.readlines())
+
+b = 1
+a = b
+
+print(a,b)

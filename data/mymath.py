@@ -45,3 +45,27 @@ def nCr(n, r) -> int:  #OCP violation
     numerator = factorial(n)
     denominator = factorial(n-r)*factorial(r)
     return int(numerator / denominator)
+
+#파스칼
+
+# def pas(n):
+#     if n == 1:
+#         return [1]
+#     arr = [1]
+#     for i in range(len(pas(n-1))-1):
+#         arr.append(pas(n-1)[i]+pas(n-1)[i+1])
+#     arr.append(1)
+#     return arr
+# print(pas(5))
+
+#피보나치 0부터 시작
+# def fib(n):
+#     if n==0:
+#         return [0]
+#     if n==1:
+#         return [0,1]
+#     arr = fib(n-1)
+#     arr.append(arr[-1]+arr[-2])
+#     return arr
+# print(fib(6))
+

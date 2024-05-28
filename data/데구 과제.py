@@ -3,7 +3,7 @@ class Empty(Exception):
   ''' Error attempting to access an element from an empty container.'''
   pass
 
-class _DoublyLinkedBase:
+class _DoublyLinkedBase:#노드 만들고 노드에 직접 접근 next, prev
   '''A base class providing a doubly linked list representation.'''
 
   #-----------------------------------------------------------------
@@ -51,7 +51,7 @@ class _DoublyLinkedBase:
     node._prev = node._next = node._element = None # deprecate node
     return element      # return deleted element
 
-class PositionalList(_DoublyLinkedBase):
+class PositionalList(_DoublyLinkedBase):#포지션 만들고 포지션을 토해 노드에 접근
   '''A sequential container of elements allowing positional access'''
 
   # -------------- nested Position Class ----------------------------
@@ -77,7 +77,7 @@ class PositionalList(_DoublyLinkedBase):
       return not (self == other)
 
     #-------------------- Utility Methods ---------------------------
-
+#p가 가리키는 노드 리턴
   def _validate(self, p):
     '''Return position's node or raise appropriate error if invalid'''
     if not isinstance(p, self.Position):
@@ -87,22 +87,22 @@ class PositionalList(_DoublyLinkedBase):
     if p._node._next is None:   # convention for depricated nodes
       raise ValueError('p is no longer valid')
     return p._node
-
+#node의 p 생성
   def _make_position(self, node):
     ''' Return Position instance for a given node(or None if sentinel)'''
     if node is self._header or node is self._trailer:
-      return None             #boundary violation
+      return None             #boundary violation - sentinel node 노드가 헤더나 트레일러면 None 리턴
     else:
-      return self.Position(self, node)    # legitimate position
+      return self.Position(self, node)    # legitimate position 포지션 객체가 만들어 지는 것
 
   # ------------------- Accessors ----------------------------
-  
+  # 포지션 리턴하는 메소드들
     
-  def find_position(self, e):
+  def find_position(self, e):#데이터 e를 가지는 노드의 포지션
     '''Return the first Position containing element e, or None if not found.'''
-    cursor = self.first()
+    cursor = self.first() # curosr가 포지션 나타낸다
     while cursor is not None:
-      if cursor.element() == e:
+      if cursor.element() == e:#posiiton에 element() 메서드 있으니 사용 가능 Node의 element속성이 아니다.
         return cursor
       cursor = self.after(cursor)
     return None
@@ -137,7 +137,7 @@ class PositionalList(_DoublyLinkedBase):
   # override inherited version to return Position, rather than Node
   def _insert_between(self, e, predecessor, successor):
     '''Add element between existing nodes and return new Position'''
-    node = super()._insert_between(e, predecessor, successor)
+    node = super()._insert_between(e, predecessor, successor)#부모 클래스의 insert 메서드는 노드를 만든다.
     return self._make_position(node)
 
   def add_first(self, e):
@@ -173,31 +173,30 @@ class PositionalList(_DoublyLinkedBase):
     original._element = e
     return old_value
 
-'''
-If you enter an alphabet, insert the alphabet in the string as left, 
-and if not, insert it at the end of the list. 
-If more alphabets are entered than necessary, insert them to the right of the already existing alphabet.
-'''
+# 입력받을때 문자열에 포함되는 알파벳은 left로 삽입, 포함되지 않거나 필요이상의 요소가 들어오면 리스트의 끝에 삽입 
 
 class NameBasedPositionalList(PositionalList):
   def __init__(self, name):
-    super().__init__()#Using the super() function to use the member variables of the parent class
+    super().__init__()#부모클래스의 멤버 변수들을 그대로 이용하기위해 super() 함수 이용
     self._name = list(name.lower())#내이름저장
 
-  def add_character(self, alpha):#A node with a value is created, and the position of the node is the data of the object L.
+  def add_character(self, alpha):#값을 가지는 노드를 만들고 그 포지션을 객체 L이 가지는 것이다.
     if alpha.lower() in self._name:
-        current_position = self.first()
+        current_position = self.first()#처음에는 current_position이 None 인 것이다. 지금 self에 아무런 요소가 없으니
+        #self는 객체 L을 나타낸다. position이 아니라 positional list다. 그러니 초기값으론 positional list에 아무값이 없는 것
         last_position = False
-        #Locate the last location where alpha is located.
-        #Assign the last location of alpha to the last_position variable
-        #Check all elements of the list through the while statement. When the last position is assigned to the current position, the while statement ends.
+        # 리스트 전체를 순회하며 alpha가 마지막으로 나타난 위치를 찾습니다.
+      ######################################################
+
+        #alpha가 마지막으로 나타난 위치를 last_position 변수에 할당
+        #while문은 리스트의 모든 요소를 다 돈다. current position에 제일 끝 position이 할당되는 다음에 while문은 끝나게된다.
         while  current_position:
             if  current_position.element() == alpha.lower():
                 last_position =  current_position
-            current_position = self.after(current_position)
+            current_position = self.after(current_position)#current_position은 제일 뒷쪽의 포지션이 할당된다.
 
-        #Run if statement if alpha is on the list
-        if last_position:
+        #alpha가 리스트에 있으면 if문 실행
+        if bool(last_position):# not None 하면 True다. None 이면 False다.
             # 마지막 위치의 바로 다음에 삽입
             self.add_after(last_position, alpha.lower())                                  #여기서 노드를 만든다.
         else:
